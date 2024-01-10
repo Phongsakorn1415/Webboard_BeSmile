@@ -9,8 +9,16 @@
     <h1 style="text-align: center;">BeSmile WebBoard</h1>
     <hr>
     <div style="text-align: center;">
-        ต้องการดูกระทู้หมายเลข <?php echo $_GET['id']?><br><br>
+        
+        <?php
+
+            $page = $_GET['id'];
+            echo "ต้องการดูกระทู้หมายเลข $page<br>";
+            if(($page % 2) == 0) echo "เป็นกระทู้หมายเลขคู่";
+            else echo "เป็นกระทู้หมายเลขคี่";
+        ?>
     </div>
+    <br>
     <form>
         <table style="border: 2px solid black; width: 40%;" align="center">
             <tr>
@@ -26,7 +34,7 @@
     </form>
     <br>
     <div  style="text-align: center">
-        <a href="index.html">กลับไปหน้าหลัก</a>
+        <a href="index.php">กลับไปหน้าหลัก</a>
     </div>
     
 </body>
