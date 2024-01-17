@@ -1,3 +1,13 @@
+<?php
+    session_start();
+    if(isset($_SESSION["id"]))
+    {
+        header("location:index.php");
+    }
+    else
+    {
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,9 +40,10 @@
     </form>
     <br>
     <div style="text-align: center;">
-        ถ้ายังไม่ได้เป็นสมาชิก <a href=" register.html ">กรุณาสมัครสมาชิก</a><br><br>
+        ถ้ายังไม่ได้เป็นสมาชิก <a href=" register.php ">กรุณาสมัครสมาชิก</a><br><br>
         <a href="index.php">กลับไปหน้าหลัก</a>
     </div>
 </body>
 
 </html>
+<?php } ?>
