@@ -27,10 +27,16 @@
                 <button class="btn btn-sm btn-light btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     --ทั้งหมด--
                 </button>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu" aria-labelledby="Button2">
                     <li><a class="dropdown-item" href="#">ทั้งหมด</a></li>
-                    <li><a class="dropdown-item" href="#">เรื่องทั่วไป</a></li>
-                    <li><a class="dropdown-item" href="#">เรื่องเรียน</a></li>
+                    <?php
+                        $conn = new PDO("mysql:host=localhost;dbname=webboard;charset=utf8", "root", "");
+                        $sql = "SELECT * FROM category";
+                        foreach($conn->query($sql) as $row){
+                            echo "<li><a class='dropdown-item' href=#>$row[name]</a></li>";
+                        }
+                        $conn = null
+                    ?>
                 </ul>
             </span>
         </div>
@@ -46,15 +52,36 @@
     <div>
         <table class="table table-striped mt-4">
         <?php
-            for($j = 1; $j <= 10; $j++)
-            {
-                echo "<tr><td class='d-flex justify-content-between'><a href='post.php?id=".$j."' style='text-decoration: none;'>กระทู้ที่ $j</a>";
+            $conn = new PDO("mysql:host=localhost;dbname=webboard;charset=utf8", "root", "");
+            $sql = "SELECT category.name, post.title, post.id, user.username, post.post_date FROM post
+                    INNER JOIN user ON (post.user_id = user.id)
+                    INNER JOIN category ON (post.cat_id = category.id)
+                    ORDER BY post.post_date DESC";
+            
+            $result = $conn->query($sql);
+            while($row = $result->fetch()){
+                echo "<tr><td class='d-flex justify-content-between align-items-center'>
+                        <div>[$row[0]]<a href=post.php?id=$row[2] style=text-decoration:none;>$row[1]</a>
+                        <br>
+                        $row[3] - $row[4]</div>";
                 if(isset($_SESSION["id"]) && $_SESSION["role"] == "a")
-                {
-                    echo "&nbsp&nbsp&nbsp&nbsp<a href = delete.php?id=$j class='btn btn-danger btn-sm me-3'><i class='bi bi-trash'></i></a>";
-                }
-                echo "</td></tr>";
-            }?>
+                    {
+                        echo "<div><a href = delete.php?id=$row[2] class='btn btn-danger btn-sm me-3 '><i class='bi bi-trash'></i></a></div>";
+                    }
+                    echo "</td></tr>";
+            }
+            $conn = null;
+
+            // for($j = 1; $j <= 10; $j++)
+            // {
+            //     echo "<tr><td class='d-flex justify-content-between'><a href='post.php?id=".$j."' style='text-decoration: none;'>กระทู้ที่ $j</a>";
+            //     if(isset($_SESSION["id"]) && $_SESSION["role"] == "a")
+            //     {
+            //         echo "&nbsp&nbsp&nbsp&nbsp<a href = delete.php?id=$j class='btn btn-danger btn-sm me-3'><i class='bi bi-trash'></i></a>";
+            //     }
+            //     echo "</td></tr>";
+            // }
+            ?>
         </table>
     </div>
     </div>

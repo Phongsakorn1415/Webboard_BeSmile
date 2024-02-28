@@ -60,7 +60,7 @@
         </div>
         <br>
         <div style="text-align: center;">
-            ถ้ายังไม่ได้เป็นสมาชิก <a href=" register.php " class="btn btn-primary">กรุณาสมัครสมาชิก</a><br><br>
+            ถ้ายังไม่ได้เป็นสมาชิก <a href=" register.php " class="btn btn-primary ms-1">กรุณาสมัครสมาชิก</a><br><br>
             <!--<a href="index.php">กลับไปหน้าหลัก</a>-->
         </div>
     </div>

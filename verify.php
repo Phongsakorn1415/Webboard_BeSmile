@@ -3,6 +3,7 @@
     if(isset($_SESSION["id"]))
     {
         header("location:index.php");
+        die();
     }
     else
     {
@@ -19,24 +20,21 @@
         <?php
             $username = $_POST['username'];
             $password = $_POST['password'];
+            $conn = new PDO("mysql:host=localhost;dbname=webboard;charset=utf8", "root", "");
 
-            if($username == "admin" && $password == "ad1234") 
+            $sql = "SELECT * FROM user WHERE username='$username' AND password=sha1('$password')";
+            $result = $conn->query($sql);
+
+            if($result->rowCount()==1) 
             {
-                $_SESSION["username"] = "admin";
-                $_SESSION["role"] = "a";
+                $data = $result->fetch(PDO::FETCH_ASSOC);
+                $_SESSION["username"] = $data['username'];
+                $_SESSION["role"] = $data['role'];
+                $_SESSION["user_id"] = $data['id'];
                 $_SESSION["id"] = session_id();
                 header("location:index.php");
                 die();
                 //echo "ยินดีต้อนรับคุณ ADMIN";
-            }
-            elseif($username == "member" && $password == "mem1234") 
-            {
-                $_SESSION["username"] = "member";
-                $_SESSION["role"] = "m";
-                $_SESSION["id"] = session_id();
-                header("location:index.php");
-                die();
-                //echo "ยินดีต้อนรับคุณ MEMBER";
             }
             else 
             {
@@ -46,8 +44,7 @@
                 //echo "ชื่อบัญชี หรือ รหัสผ่าน ไม่ถูกต้อง";
             }
 
-            /*echo "Username : " . $username . "<BR>";
-            echo "Password : " . $password ;*/
+            $conn = null;
         ?>
 </body>
 </html>
