@@ -16,8 +16,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BeSmile Login</title>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="bootstrap/icons/font/bootstrap-icons.min.css">
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 </head>
 
 <body>
@@ -27,7 +28,9 @@
         <?php include "nav.php" ?>
 
         <div class="row mt-4"> <!-- Login card -->
-            <div class="col-lg-4 col-md-3 col-sm-2 col-1"></div>
+            <div class="col-lg-4 col-md-3 col-sm-2 col-1">
+                <a href="javascript:history.back()" class="btn btn-secondary btn-sm me-2"><i class="bi bi-arrow-bar-left"></i> ย้อนกลับ</a>
+            </div>
             <div class="col-lg-4 col-md-6 col-sm-8 col-10">
 
             <?php if(isset($_SESSION["error"]))
@@ -41,7 +44,7 @@
                     <div class="card-body">
                         <form action="verify.php" method="post">
                             <div class="form-group">
-                                <label for="login" class="form-label">Login:</label>
+                                <label for="login" class="form-label">Username:</label>
                                 <input type="text" name="username" id="login" class="form-control">
                             </div>
                             <div class="form-group mt-2">

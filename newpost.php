@@ -14,8 +14,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="bootstrap/icons/font/bootstrap-icons.min.css">
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
 </head>
 <body>
     <div class="container-lg">
@@ -23,13 +24,15 @@
         <?php include "nav.php" ?> 
 
         <div class="row mt-4">
-            <div class="col-lg-3 col-md-2 col-sm-1 col-1"></div>
+            <div class="col-lg-3 col-md-2 col-sm-1 col-1">
+                <a href="javascript:history.back()" class="btn btn-secondary btn-sm me-2"><i class="bi bi-arrow-bar-left"></i> ย้อนกลับ</a>
+            </div>
             <div class="col-lg-6 col-md-8 col-sm-10 col-10">
                 <div class="card border-info">
                     <div class="card-header bg-info text-white">ตั้งกระทู้ใหม่</div>
                     <div class="card-body">
-                    <form action="newpost_save.php" method="post">
-                        <div class="row">
+                        <form action="newpost_save.php" method="post">
+                            <div class="row">
                                 <label for="category" class="col-lg-3 col-form-label">หมวดหมู่:</label>
                                 <div class="col-lg-9">
                                     <select name="category" id="category" class="form-select">
@@ -59,12 +62,15 @@
                             <div class="row mt-3">
                                 <div class="col-lg-12 d-flex justify-content-center">
                                     <button type="submit" class="btn btn-info btn-sm text-white me-2"><i class="bi bi-sticky"></i> โพส</button>
-                                    <button type="reset" class="btn btn-danger btn-sm"><i class="bi bi-x-square"></i> ยกเลิก</button>
+                                    <button type="reset" class="btn btn-danger btn-sm"><i class="bi bi-x-square"></i> ล้าง</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
+                <!-- <div class="d-flex justify-content-center mt-3">
+                    
+                </div> -->
             </div>
             <div class="col-lg-3 col-md-2 col-sm-1 col-1"></div>
         </div>

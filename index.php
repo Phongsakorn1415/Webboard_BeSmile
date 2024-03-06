@@ -9,9 +9,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BeSmile Webboard</title>
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/icons/font/bootstrap-icons.min.css">
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 </head>
 
 <body>
@@ -61,16 +62,38 @@
             $result = $conn->query($sql);
             while($row = $result->fetch()){
                 echo "<tr><td class='d-flex justify-content-between align-items-center'>
-                        <div>[$row[0]]<a href=post.php?id=$row[2] style=text-decoration:none;>$row[1]</a>
+                        <div>[$row[0]] <a href=post.php?id=$row[2] style=text-decoration:none;>$row[1]</a>
                         <br>
                         $row[3] - $row[4]</div>";
                 if(isset($_SESSION["id"]) && $_SESSION["role"] == "a")
                     {
-                        echo "<div><a href = delete.php?id=$row[2] class='btn btn-danger btn-sm me-3 '><i class='bi bi-trash'></i></a></div>";
+                        echo "<div><button class='btn btn-danger btn-sm me-3 ' data-bs-toggle='modal' data-bs-target='#deletePostModal$row[2]'><i class='bi bi-trash'></i></button></div>";
+                        echo "<div class='modal fade' id='deletePostModal$row[2]' tabindex='-1' aria-labelledby='deletePostModalLabel' aria-hidden='true'>
+                                <div class='modal-dialog modal-dialog-centered'>
+                                    <div class='modal-content'>
+                                        <div class='modal-header'>
+                                            <h1 class='modal-title fs-5 text-danger' id='exampleModalLabel'>[ DANGER!! ] ต้องการที่จะลบกระทู้นี้ หรือไม่!!!</h1>
+                                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                                        </div>
+                                        <div class='modal-body bg-light'>
+                                            <div>
+                                                [$row[0]] <span class='text-primary'>$row[1]</span>
+                                                <br>
+                                                $row[3] - $row[4]
+                                            </div>
+                                        </div>
+                                        <div class='modal-footer d-flex justify-content-center'>
+                                            <a href='delete.php?id=$row[2]' class='btn btn-danger'>Delete</a>
+                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>";
                     }
                     echo "</td></tr>";
             }
             $conn = null;
+            //<a href='delete.php?id=$row[2]' class='btn btn-danger'>Delete</a>
 
             // for($j = 1; $j <= 10; $j++)
             // {
