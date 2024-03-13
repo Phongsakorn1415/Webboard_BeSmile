@@ -17,7 +17,19 @@
     <title>BeSmile Webboard register</title>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="bootstrap/icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="BeSmile/css/style.css">
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="BeSmile/javascript/Besmile.js"></script>
+    <script>
+        function passCheck() {
+            let pwd = document.getElementById("password");
+            let cfpwd = document.getElementById("cfpassword");
+            if(pwd.value !== cfpwd.value){
+                alert("รหัสผ่านทั้งสองช่อง \" ไม่ตรงกัน \"");
+                cfpwd.value = "";
+            }
+        }
+    </script>
     
 </head>
 
@@ -30,10 +42,8 @@
         
 
         <div class="row mt-4"> <!-- register card -->
-            <div class="col-lg-3 col-md-2 col-sm-1 col-1">
-                <a href="javascript:history.back()" class="btn btn-secondary btn-sm me-2"><i class="bi bi-arrow-bar-left"></i> ย้อนกลับ</a>
-            </div>
-            <div class="col-lg-6 col-md-8 col-sm-10 col-10">
+            <div class="col-lg-3 col-md-2 col-sm-1"></div>
+            <div class="col-lg-6 col-md-8 col-sm-10">
                 
                 <?php 
                     if(isset($_SESSION['new_register'])){
@@ -63,7 +73,19 @@
                             <div class="row mt-3">
                                 <label for="password" class="col-lg-3 col-form-label">รหัสผ่าน:</label>
                                 <div class="col-lg-9">
-                                    <input type="password" name="password" id="password" class="form-control" required>
+                                    <div class="input-group">
+                                        <input type="password" name="password" id="password" class="form-control" required>
+                                        <span class="input-group-text input-group-text-btn" onclick="passShow('password', 'passIcon')"><i class="bi bi-eye-slash-fill" id="passIcon"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <label for="cfpassword" class="col-lg-3 col-form-label">ยืนยันรหัส:</label>
+                                <div class="col-lg-9">
+                                    <div class="input-group">
+                                        <input type="password" name="cfpassword" id="cfpassword" onblur="passCheck()" class="form-control" required>
+                                        <span class="input-group-text input-group-text-btn" onclick="passShow('cfpassword', 'cfpassIcon')"><i class="bi bi-eye-slash-fill noTextSelect" id="cfpassIcon"></i></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row mt-3">
@@ -76,16 +98,16 @@
                                 <label for="name" class="col-lg-3 form-label">เพศ:</label>
                                 <div class="col-lg-9">
                                     <div class="form-check">
-                                        <input type="radio" name="gender" value="m" class="form-check-input" required>
-                                        <label class="form-check-label">ชาย</label>
+                                        <input type="radio" name="gender" id="male" value="m" class="form-check-input" required>
+                                        <label class="form-check-label" for="male">ชาย</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="radio" name="gender" value="f" class="form-check-input" required>
-                                        <label class="form-check-label">หญิง</label>
+                                        <input type="radio" name="gender" id="female" value="f" class="form-check-input" required>
+                                        <label class="form-check-label" for="female">หญิง</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="radio" name="gender" value="o" class="form-check-input" required>
-                                        <label class="form-check-label">อื่นๆ</label>
+                                        <input type="radio" name="gender" id="other" value="o" class="form-check-input" required>
+                                        <label class="form-check-label" for="other">อื่นๆ</label>
                                     </div>
                                 </div>
                             </div>
@@ -105,7 +127,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-2 col-sm-1 col-1"></div>
+            <div class="col-lg-3 col-md-2 col-sm-1"></div>
         </div>
         <br>
         <!-- <div style="text-align: center;">

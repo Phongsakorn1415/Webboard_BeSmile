@@ -17,7 +17,9 @@
     <title>BeSmile Login</title>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="bootstrap/icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="BeSmile/css/style.css">
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="BeSmile/javascript/Besmile.js"></script>
 
 </head>
 
@@ -28,9 +30,7 @@
         <?php include "nav.php" ?>
 
         <div class="row mt-4"> <!-- Login card -->
-            <div class="col-lg-4 col-md-3 col-sm-2 col-1">
-                <a href="javascript:history.back()" class="btn btn-secondary btn-sm me-2"><i class="bi bi-arrow-bar-left"></i> ย้อนกลับ</a>
-            </div>
+            <div class="col-lg-4 col-md-3 col-sm-2 col-1"></div>
             <div class="col-lg-4 col-md-6 col-sm-8 col-10">
 
             <?php if(isset($_SESSION["error"]))
@@ -49,7 +49,13 @@
                             </div>
                             <div class="form-group mt-2">
                                 <label for="passwd" class="form-label">Password:</label>
-                                <input type="password" name="password" id="passwd" class="form-control">
+                                <div class="input-group">
+                                    <input type="password" name="password" id="passwd" class="form-control">
+                                    <span class="input-group-text input-group-text-btn" onclick="pass_show_hide()">
+                                        <i class="bi bi-eye-fill" id="passShow"></i>
+                                        <i class="bi bi-eye-slash-fill d-none" id="passHide"></i>
+                                    </span>
+                                </div>
                             </div>
                             <div class="form-group mt-3 d-flex justify-content-center">
                                 <input type="submit" value="Login" class="btn btn-success me-2">
@@ -67,6 +73,24 @@
             <!--<a href="index.php">กลับไปหน้าหลัก</a>-->
         </div>
     </div>
+    <script>
+        function pass_show_hide(){
+            let x = document.getElementById("passwd");
+            let passShow = document.getElementById("passShow");
+            let passHide = document.getElementById("passHide");
+            passHide.classList.remove("d-none");
+            if(x.type === "password"){
+                x.type = "text";
+                passShow.style.display = "none";
+                passHide.style.display = "block";
+            }
+            else{
+                x.type = "password";
+                passShow.style.display = "block";
+                passHide.style.display = "none";
+            }
+        }
+    </script>
 </body>
 
 </html>

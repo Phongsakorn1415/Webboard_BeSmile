@@ -25,3 +25,32 @@
         </ul>
     </div>
 </nav>
+<div class="Navbtn" id="mininav" style="display: none;">
+    <!-- <a href="javascript:history.back()" class="btn btn-secondary"><i class="bi bi-arrow-bar-left"></i></a> -->
+    <a href="index.php" class="btn btn-primary" id="HomeBtn"><i class="bi bi-house-door-fill"></i> Home</a>
+    <button class="btn btn-primary" onclick="topFunction()"><i class="bi bi-arrow-up-square"></i></button>
+</div>
+
+<script>
+    let mybutton = document.getElementById("mininav");
+    let fileName = location.href.split("/").pop().split("?").shift();
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            mybutton.style.display = "block";
+            if(fileName == "index.php"){
+                HomeBtn.style.display = "none";
+            }
+        
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+// When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }
+</script>

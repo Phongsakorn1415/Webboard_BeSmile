@@ -12,10 +12,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>BeSmile สร้างกระทู้</title>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="bootstrap/icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="BeSmile/css/style.css">
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="BeSmile/javascript/Besmile.js"></script>
     
 </head>
 <body>
@@ -24,10 +26,8 @@
         <?php include "nav.php" ?> 
 
         <div class="row mt-4">
-            <div class="col-lg-3 col-md-2 col-sm-1 col-1">
-                <a href="javascript:history.back()" class="btn btn-secondary btn-sm me-2"><i class="bi bi-arrow-bar-left"></i> ย้อนกลับ</a>
-            </div>
-            <div class="col-lg-6 col-md-8 col-sm-10 col-10">
+            <div class="col-lg-3 col-md-2 col-sm-1"></div>
+            <div class="col-lg-6 col-md-8 col-sm-10">
                 <div class="card border-info">
                     <div class="card-header bg-info text-white">ตั้งกระทู้ใหม่</div>
                     <div class="card-body">
@@ -72,7 +72,7 @@
                     
                 </div> -->
             </div>
-            <div class="col-lg-3 col-md-2 col-sm-1 col-1"></div>
+            <div class="col-lg-3 col-md-2 col-sm-1"></div>
         </div>
     </div>
 </body>

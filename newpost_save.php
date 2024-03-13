@@ -1,9 +1,6 @@
 <?php
     session_start();
-    if(!isset($_SESSION["id"]))
-    {
-        header("location:index.php");
-    }
+    if(!isset($_SESSION["id"]));
     else
     {
         $category = $_POST['category'];
@@ -15,5 +12,10 @@
                 VALUES ('$title', '$content', now(), '$category', '$_SESSION[user_id]')";
 
         $conn->exec($sql);
+
+        // $_SESSION['new_post'] = $title;
     }
+
+    header("location:index.php");
+    // die()
 ?>
