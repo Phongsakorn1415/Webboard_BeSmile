@@ -75,7 +75,7 @@
                                 <div class="col-lg-9">
                                     <div class="input-group">
                                         <input type="password" name="password" id="password" class="form-control" required>
-                                        <span class="input-group-text input-group-text-btn" onclick="passShow('password', 'passIcon')"><i class="bi bi-eye-slash-fill" id="passIcon"></i></span>
+                                        <span class="input-group-text input-group-text-btn" onclick="passShow_Hide('password', 'passIcon')"><i class="bi bi-eye-slash-fill" id="passIcon"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                                 <div class="col-lg-9">
                                     <div class="input-group">
                                         <input type="password" name="cfpassword" id="cfpassword" onblur="passCheck()" class="form-control" required>
-                                        <span class="input-group-text input-group-text-btn" onclick="passShow('cfpassword', 'cfpassIcon')"><i class="bi bi-eye-slash-fill noTextSelect" id="cfpassIcon"></i></span>
+                                        <span class="input-group-text input-group-text-btn" onclick="passShow_Hide('cfpassword', 'cfpassIcon')"><i class="bi bi-eye-slash-fill noTextSelect" id="cfpassIcon"></i></span>
                                     </div>
                                 </div>
                             </div>

@@ -35,15 +35,27 @@
             <label>หมวดหมู่</label>
             <span class="dropdown">
                 <button class="btn btn-sm btn-light btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    --ทั้งหมด--
+                    <?php
+                        if(isset($_GET['cat'])){
+                            $conn = new PDO("mysql:host=localhost;dbname=webboard;charset=utf8", "root", "");
+                            $sql = "SELECT * FROM category WHERE id = $_GET[cat]";
+                            foreach($conn->query($sql) as $row){
+                                echo "$row[name]";
+                            }
+                            $conn = null;
+                        }
+                        else{
+                            echo "--ทั้งหมด--";
+                        }
+                    ?>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="Button2">
-                    <li><a class="dropdown-item" href="#">ทั้งหมด</a></li>
+                    <li><a class="dropdown-item" href="index.php">ทั้งหมด</a></li>
                     <?php
                         $conn = new PDO("mysql:host=localhost;dbname=webboard;charset=utf8", "root", "");
                         $sql = "SELECT * FROM category";
                         foreach($conn->query($sql) as $row){
-                            echo "<li><a class='dropdown-item' href=#>$row[name]</a></li>";
+                            echo "<li><a class='dropdown-item' href=index.php?cat=$row[id]>$row[name]</a></li>";
                         }
                         $conn = null
                     ?>
@@ -63,10 +75,20 @@
         <table class="table table-striped mt-4">
         <?php
             $conn = new PDO("mysql:host=localhost;dbname=webboard;charset=utf8", "root", "");
-            $sql = "SELECT category.name, post.title, post.id, user.username, post.post_date FROM post
+            if(isset($_GET['cat'])){
+                $sql = "SELECT category.name, post.title, post.id, user.username, post.post_date, post.user_id FROM post
+                    INNER JOIN user ON (post.user_id = user.id)
+                    INNER JOIN category ON (post.cat_id = category.id)
+                    WHERE post.cat_id = '$_GET[cat]'
+                    ORDER BY post.post_date DESC";
+            }
+            else{
+                $sql = "SELECT category.name, post.title, post.id, user.username, post.post_date, post.user_id FROM post
                     INNER JOIN user ON (post.user_id = user.id)
                     INNER JOIN category ON (post.cat_id = category.id)
                     ORDER BY post.post_date DESC";
+            }
+            
             
             $result = $conn->query($sql);
             while($row = $result->fetch()){
@@ -77,31 +99,37 @@
                             <br>
                             $row[3] - [ $row[4] ]
                         </div>";
-                if(isset($_SESSION["id"]) && $_SESSION["role"] == "a")
+                if(isset($_SESSION["id"]))
                     {
-                        echo "<div class='align-self-center'><button class='btn btn-danger btn-sm me-3 ' data-bs-toggle='modal' data-bs-target='#deletePostModal$row[2]'><i class='bi bi-trash'></i></button></div>";
-                        // echo "<div><button class='btn btn-danger btn-sm me-3 ' onclick='modalShow($row[2])'><i class='bi bi-trash'></i></button></div>";
-                        echo "<div class='modal fade' id='deletePostModal$row[2]' tabindex='-1' aria-labelledby='deletePostModalLabel' aria-hidden='true'>
-                                <div class='modal-dialog modal-dialog-centered'>
-                                    <div class='modal-content'>
-                                        <div class='modal-header'>
-                                            <h1 class='modal-title fs-5 text-danger' id='exampleModalLabel'>[ DANGER!! ] ต้องการที่จะลบกระทู้นี้ หรือไม่!!!</h1>
-                                            <button type='button' id='modalclosebtn' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
-                                        </div>
-                                        <div class='modal-body bg-light'>
-                                            <div>
-                                                [$row[0]] <span class='text-primary'>$row[1]</span>
-                                                <br>
-                                                $row[3] - $row[4]
+                        if($_SESSION["role"] == "a" || $_SESSION["user_id"] == $row[5]){
+                            echo "<div class='align-self-center'>";
+                            if($_SESSION["user_id"] == $row[5]){
+                                echo "<a href='editpost.php?id=$row[2]' class='btn btn-warning btn-sm me-1'><i class='bi bi-pencil-fill'></i></a>";
+                            }
+                            echo "<button class='btn btn-danger btn-sm me-3 ' data-bs-toggle='modal' data-bs-target='#deletePostModal$row[2]'><i class='bi bi-trash'></i></button></div>";
+                            echo "<div class='modal fade' id='deletePostModal$row[2]' tabindex='-1' aria-labelledby='deletePostModalLabel' aria-hidden='true'>
+                                    <div class='modal-dialog modal-dialog-centered'>
+                                        <div class='modal-content'>
+                                            <div class='modal-header'>
+                                                <h1 class='modal-title fs-5 text-danger' id='exampleModalLabel'>[ DANGER!! ] ต้องการที่จะลบกระทู้นี้ หรือไม่!!!</h1>
+                                                <button type='button' id='modalclosebtn' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                                            </div>
+                                            <div class='modal-body bg-light'>
+                                                <div>
+                                                    [$row[0]] <span class='text-primary'>$row[1]</span>
+                                                    <br>
+                                                    $row[3] - $row[4]
+                                                </div>
+                                            </div>
+                                            <div class='modal-footer d-flex justify-content-center'>
+                                                <a href='delete.php?id=$row[2]' onclick='return deleteCon()' class='btn btn-danger'>Delete</a>
+                                                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
                                             </div>
                                         </div>
-                                        <div class='modal-footer d-flex justify-content-center'>
-                                            <a href='delete.php?id=$row[2]' onclick='return deleteCon()' class='btn btn-danger'>Delete</a>
-                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
-                                        </div>
                                     </div>
-                                </div>
-                            </div>";
+                                </div>";
+                        }
+                        
                     }
                     echo "</td></tr>";
             }
